@@ -30,6 +30,15 @@
     padding:5px;
 }
 
+/* .user_1 .text::after{
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right:10px solid black;
+} */
+
 .user_2_container{
     text-align: left;
     margin: 0 0 20px 0;
@@ -64,7 +73,8 @@
 }
 
 .input-text{
-    width: 95%;
+    width: 98%;
+    /* width: 100%; */
     position: absolute;
     left:0;
     padding: 8px 0;
@@ -74,7 +84,14 @@
 
 .btn-send{
     position: absolute;
-    right: 0;
-    padding: 8px 10px;
+    right: 17px;
+    padding: 10px 10px;
     font-size: 15px;
+    background-color: pink;
+    outline: none;
+    border: none;
+}
+
+.btn-send:active{
+    background-color: deeppink;
 }

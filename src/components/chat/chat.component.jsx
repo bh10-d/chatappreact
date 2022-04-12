@@ -85,10 +85,20 @@ const Chat = ()=>{
                         </div>
                     </div>
                 </div>
+                <div className="user_2_container">
+                    <div className="user_2_right">
+                        <div className="user_2">
+                            <div className="text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ipsam commodi at facilis reprehenderit suscipit quae cumque quis perspiciatis modi minus esse, molestiae eius hic distinctio quisquam officiis possimus. Eaque!
+                            </div>
+                            <img src="logo192.png" alt="avatar" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="input_container">
                 <input className="input-text" type="text" placeholder="Enter your text" />
-                <button className="btn-send">Send</button>
+                <button type="submit" className="btn-send">Send</button>
             </div>
         </div>
     )
