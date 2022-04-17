@@ -76,16 +76,15 @@ function App() {
 
   return (
     <div className="App">
-      {/* <HomePage/> */}
-      {user ? (
+      <HomePage/>
+      {/* {user ? (
         <>
           <Button onClick={signOut}>Sign out</Button>
-          {/* <p>Welcome to the chat</p> */}
           <Channel user={user} db={db}/>
         </>  
       ) : (
       <Button onClick={signInwithGoogle}>Sign in with Google</Button>
-      )}
+      )} */}
     </div>
   );
 }
