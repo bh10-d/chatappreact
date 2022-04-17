@@ -1,6 +1,8 @@
 import {React, useState, useEffect, useRef} from "react";
 import firebase from "firebase";
-
+import Message from "../message/message.component";
+import Message2 from "../message/message2.component";
+import Chat2 from "../chat/chatv2.component";
 
 const Channel = ({ user = null, db = null }) =>{
 
@@ -23,6 +25,7 @@ const Channel = ({ user = null, db = null }) =>{
                         id: doc.id
                     }));
                     setMessage(data);
+                    console.log(data);
                 })
                 return unsubcribe;
         }
@@ -49,12 +52,16 @@ const Channel = ({ user = null, db = null }) =>{
 
     return (
         <>
-            <ul>
+            {/* <ul>
                 {message.map(message =>(
-                    <li key={message.id}>{message.text}</li>
+                    // <li key={message.id}><Message2 {...message}/></li>
+                    <Message2 {...message}/>
                 ))}
-            </ul>
-            <form onSubmit={handleOnSubmit}>
+            </ul> */}
+
+            <Chat2 data={message} uid={uid}/>
+            
+            {/* <form onSubmit={handleOnSubmit}>
                 <input 
                     type="text"
                     value={newMessage}
@@ -65,6 +72,20 @@ const Channel = ({ user = null, db = null }) =>{
                 <button type="submit" disabled={!newMessage}>
                     Send
                 </button>
+            </form> */}
+
+            <form onSubmit={handleOnSubmit}>
+                <div className="input_container">
+                    <input
+                        className="input-text" 
+                        type="text"
+                        value={newMessage}
+                        onChange={handleOnChange}
+                        placeholder="Type your message here ..."
+                        ref={focus}
+                    />
+                    <button type="submit" className="btn-send" disabled={!newMessage}>Send</button>
+                </div>
             </form>
         </>
     )

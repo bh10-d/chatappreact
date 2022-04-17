@@ -10,7 +10,7 @@
 
 .user_1_container{
     text-align: left;
-    margin: 10px 0 20px 0;
+    margin: 0 0 20px 0;
 }
 
 .user_1{
@@ -24,10 +24,16 @@
     margin: 10px 10px 0 10px;
 }
 .user_1 .text{
-    width: 500px;
+    /* width: 500px; */
     background-color:pink;
-    border-radius: 10px;
-    padding:5px;
+    /* border-radius: 10px; */
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.user_1 span{
+    padding-left: 5px;
+    font-size: 12px;
 }
 
 /* .user_1 .text::after{
@@ -60,10 +66,28 @@
     margin: 10px 10px 0 10px;
 }
 .user_2 .text{
-    width: 500px;
+    /* width: 500px; */
     background-color:pink;
-    border-radius: 10px;
-    padding: 5px;
+    /* border-radius: 10px; */
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.user_2 span{
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+.time{
+    display: none;
+    /* visibility: hidden; */
+    transition: all 0.5s ease-in-out;
+}
+
+.text:hover ~ .time {
+    display: block;
+    /* visibility: visible; */
+    transition: all 0.5s ease-in-out;
 }
 
 .input_container{
