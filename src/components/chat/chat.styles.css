@@ -1,7 +1,8 @@
 
 
 .chat-container{
-    background-color: deeppink;
+    /* background-image: linear-gradient(to bottom right, #4A708B, #607B8B); */
+    background: linear-gradient(to bottom right,#68EACC 0%, #497BE8 100%);
     width: 70%;
     height: 500px;
     overflow-y: scroll;
@@ -25,7 +26,7 @@
 }
 .user_1 .text{
     /* width: 500px; */
-    background-color:pink;
+    background-color: #d6d6d6;
     /* border-radius: 10px; */
     border-radius: 20px;
     padding: 10px;
@@ -67,7 +68,7 @@
 }
 .user_2 .text{
     /* width: 500px; */
-    background-color:pink;
+    background-color:#d6d6d6;
     /* border-radius: 10px; */
     border-radius: 20px;
     padding: 10px;
@@ -111,9 +112,10 @@
     right: 17px;
     padding: 10px 10px;
     font-size: 15px;
-    background-color: pink;
+    background-color: #00BFFF;
     outline: none;
     border: none;
+    color: #fff;
 }
 
 .btn-send:active{

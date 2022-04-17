@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect,useRef} from 'react';
 import {formatRelative} from 'date-fns';
 
 const Message2 = ({
@@ -11,6 +11,28 @@ const Message2 = ({
 })=>{
 
     console.log(uid, uidcheck);
+
+
+
+
+
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+  
+    useEffect(() => {
+      scrollToBottom()
+    }, [uid]);
+  
+
+
+
+
+
+
     return (
         // <div>
         //     {photoURL ? (
@@ -84,6 +106,7 @@ const Message2 = ({
                     </div>
                 </div>
             </div> */}
+            <div ref={messagesEndRef} /> {/*auto scroll to bottom*/}
         </>
     );
 };
