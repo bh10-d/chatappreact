@@ -4,13 +4,14 @@ import {formatRelative} from 'date-fns';
 const Message2 = ({
     createdAt = null,
     text = '',
+    textimage = null,
     displayName = '',
     photoURL = '',
     uid = '',
     uidcheck = '',
 })=>{
 
-    console.log(uid, uidcheck);
+    // console.log(uid, uidcheck);
 
 
 
@@ -51,12 +52,13 @@ const Message2 = ({
                 <div className="user_1_container">
                     <div className="user_1">
                         {photoURL ? (
-                            <img src={photoURL} alt={displayName}/>
+                            <img className="avatar" src={photoURL} alt={displayName}/>
                         ):null}
                         <div>
                             <span>{displayName}</span>
                             <div className="text">
-                                {text}
+                                {(textimage != null )?(<img src={textimage} alt="imga"/>):null}
+                                {(text != '')? text:null}
                             </div>
                             {createdAt?.seconds ? (
                                 <span className="time">
@@ -73,7 +75,8 @@ const Message2 = ({
                             <div>
                                 <span>{displayName}</span>
                                 <div className="text">
-                                    {text}
+                                    {(textimage != null )?(<img src={textimage} alt="imga"/>):null}
+                                    {(text != '')? text:null}
                                 </div>
                                 {createdAt?.seconds ? (
                                     <span className="time">
@@ -82,7 +85,7 @@ const Message2 = ({
                                 ) : null}
                             </div>
                             {photoURL ? (
-                                <img src={photoURL} alt={displayName}/>
+                                <img className="avatar" src={photoURL} alt={displayName}/>
                             ):null}
                         </div>
                     </div>

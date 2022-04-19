@@ -18,7 +18,7 @@ const Chat2 = ({data, uid}) =>{
                     </div>
                 </div> */}
                 {data.map(message=>(
-                    <Message2 {...message} uidcheck={uid}/>
+                    <Message2 key={message.createdAt} {...message} uidcheck={uid}/>
                 ))}
 
                 {/* <div className="user_1_container">

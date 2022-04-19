@@ -1,6 +1,6 @@
 
-import firebase from 'firebase';
-  
+import firebase from 'firebase/app';
+import "firebase/storage";
 const firebaseConfig = {
     apiKey: "AIzaSyDtnggnLxqL2ldriWE0N7SSPW9b--2qPWI",
     authDomain: "chatapp-3714d.firebaseapp.com",
@@ -13,6 +13,6 @@ const firebaseConfig = {
 };
     
 firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
+const storage = firebase.storage();
   
-export default database;
+export {storage, firebase as default};

@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
 }
-.user_1 img{
+.user_1 .avatar{
     border-radius: 50%;
     width: 40px;
     background-color: gray;
@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
 }
-.user_2 img{
+.user_2 .avatar{
     border-radius: 50%;
     width: 40px;
     background-color: gray;
@@ -120,4 +120,19 @@
 
 .btn-send:active{
     background-color: deeppink;
+}
+
+.input-file{
+    width: 98%;
+    /* width: 100%; */
+    position: absolute;
+    top: 100px;
+    left:0;
+    padding: 8px 0;
+    outline: none;
+    font-size: 15px;
+}
+
+img{
+    width: 200px;
 }
