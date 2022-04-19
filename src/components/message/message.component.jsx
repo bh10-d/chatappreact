@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import {React} from "react";
 import {formatRelative} from 'date-fns';
 
 const Message = ({
@@ -11,7 +11,7 @@ const Message = ({
     return (
         <div>
             {photoURL ? (
-                <img src={photoUrl} alt="Avatar" width="45" height="45"/>
+                <img src={photoURL} alt="Avatar" width="45" height="45"/>
             ): null}
             {displayName ? <p>{displayName}</p> : null}
             {createdAt?.seconds ? (

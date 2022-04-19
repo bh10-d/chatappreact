@@ -1,7 +1,8 @@
 
 
 .chat-container{
-    background-color: deeppink;
+    /* background-image: linear-gradient(to bottom right, #4A708B, #607B8B); */
+    background: linear-gradient(to bottom right,#68EACC 0%, #497BE8 100%);
     width: 70%;
     height: 500px;
     overflow-y: scroll;
@@ -10,7 +11,7 @@
 
 .user_1_container{
     text-align: left;
-    margin: 10px 0 20px 0;
+    margin: 0 0 20px 0;
 }
 
 .user_1{
@@ -24,10 +25,16 @@
     margin: 10px 10px 0 10px;
 }
 .user_1 .text{
-    width: 500px;
-    background-color:pink;
-    border-radius: 10px;
-    padding:5px;
+    /* width: 500px; */
+    background-color: #d6d6d6;
+    /* border-radius: 10px; */
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.user_1 span{
+    padding-left: 5px;
+    font-size: 12px;
 }
 
 /* .user_1 .text::after{
@@ -60,10 +67,28 @@
     margin: 10px 10px 0 10px;
 }
 .user_2 .text{
-    width: 500px;
-    background-color:pink;
-    border-radius: 10px;
-    padding: 5px;
+    /* width: 500px; */
+    background-color:#d6d6d6;
+    /* border-radius: 10px; */
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.user_2 span{
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+.time{
+    display: none;
+    /* visibility: hidden; */
+    transition: all 0.5s ease-in-out;
+}
+
+.text:hover ~ .time {
+    display: block;
+    /* visibility: visible; */
+    transition: all 0.5s ease-in-out;
 }
 
 .input_container{
@@ -87,9 +112,10 @@
     right: 17px;
     padding: 10px 10px;
     font-size: 15px;
-    background-color: pink;
+    background-color: #00BFFF;
     outline: none;
     border: none;
+    color: #fff;
 }
 
 .btn-send:active{

@@ -2,9 +2,10 @@ import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import HomePage from './page/homepage.component';
+// import HomePage from './page/homepage.component';
 import Channel from '../src/components/channel/channel.component';
 import Button from '../src/components/button/button.component';
+import './App.css';
 // const firebaseConfig = {
 //     apiKey: "AIzaSyDtnggnLxqL2ldriWE0N7SSPW9b--2qPWI",
 //     authDomain: "chatapp-3714d.firebaseapp.com",
@@ -76,15 +77,21 @@ function App() {
 
   return (
     <div className="App">
-      <HomePage/>
-      {/* {user ? (
+      {/* <HomePage/> */}
+      {/* <h1>Welcome to my chat app</h1> */}
+      {user ? (
         <>
-          <Button onClick={signOut}>Sign out</Button>
+          <div className="right">
+            <Button onClick={signOut} cName="sign_out">Sign out</Button>
+          </div>
+          {/* <p>Welcome to the chat</p> */}
           <Channel user={user} db={db}/>
         </>  
       ) : (
-      <Button onClick={signInwithGoogle}>Sign in with Google</Button>
-      )} */}
+        <div className="middle">
+          <Button onClick={signInwithGoogle} cName="sign_in">Sign in with Google</Button>
+        </div>
+      )}
     </div>
   );
 }
