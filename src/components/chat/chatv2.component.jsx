@@ -6,7 +6,8 @@ import '../chat/chat.styles.css';
 const Chat2 = ({data, uid}) =>{
     return (
         <>
-            <div className="chat-container">
+            {/* <div className="chat-container"> */}
+            <div className="w-full h-[89vh] overflow-y-scroll border border-zinc-800">
                 {/* <div className="user_1_container">
                     <div className="user_1">
                         {photoURL ? (

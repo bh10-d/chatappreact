@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { useEffect, useState } from 'react';
 // import HomePage from './page/homepage.component';
 import Channel from '../src/components/channel/channel.component';
+import Sidebar from '../src/components/sidebar/sidebar.component';
 import Button from '../src/components/button/button.component';
 import './App.css';
 // const firebaseConfig = {
@@ -86,7 +87,10 @@ function App() {
             <Button onClick={signOut} cName="sign_out">Sign out</Button>
           </div>
           {/* <p>Welcome to the chat</p> */}
-          <Channel user={user} db={db}/>
+          <div className="flex">
+            <Sidebar/>
+            <Channel user={user} db={db}/>
+          </div>
         </>  
       ) : (
         <div className="middle">

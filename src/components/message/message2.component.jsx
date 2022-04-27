@@ -55,13 +55,13 @@ const Message2 = ({
                             <img className="avatar" src={photoURL} alt={displayName}/>
                         ):null}
                         <div>
-                            <span>{displayName}</span>
+                            <span className="text-white">{displayName}</span>
                             <div className="text">
                                 {(textimage != null )?(<img src={textimage} alt="imga"/>):null}
-                                {(text != '')? text:null}
+                                {(text != '')? atob(text):null}
                             </div>
                             {createdAt?.seconds ? (
-                                <span className="time">
+                                <span className="time text-white">
                                     {formatRelative(new Date(createdAt.seconds * 1000),new Date())}
                                 </span>
                             ) : null}
@@ -73,13 +73,13 @@ const Message2 = ({
                     <div className="user_2_right">
                         <div className="user_2">
                             <div>
-                                <span>{displayName}</span>
+                                <span className="text-white">{displayName}</span>
                                 <div className="text">
                                     {(textimage != null )?(<img src={textimage} alt="imga"/>):null}
-                                    {(text != '')? text:null}
+                                    {(text != '')? atob(text):null}
                                 </div>
                                 {createdAt?.seconds ? (
-                                    <span className="time">
+                                    <span className="time text-white">
                                         {formatRelative(new Date(createdAt.seconds * 1000),new Date())}
                                     </span>
                                 ) : null}

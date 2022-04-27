@@ -4,6 +4,7 @@ import 'firebase/storage';
 // import Message from "../message/message.component";
 // import Message2 from "../message/message2.component";
 import Chat2 from "../chat/chatv2.component";
+import Sidebar from "../sidebar/sidebar.component";
 // import Input from '../input/input.component';
 // import { storage } from "../../firebase";
 // import {storage} from "../../firebase.js";
@@ -43,7 +44,7 @@ const Channel = ({ user = null, db = null }) =>{
         e.preventDefault();
         if(db){
             db.collection('messages').add({
-                text: newMessage,
+                text: btoa(newMessage),
                 textimage: image,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 uid,
@@ -60,7 +61,9 @@ const Channel = ({ user = null, db = null }) =>{
     const handleChangeUp = e=>{
         if(e.target.files[0]){
             setImage(e.target.files[0]);
+            // console.log(e.target.files[0].slice(1,1));
             // console.log(e.target.files[0]);
+            console.log(e.target);
         }
     }
     // console.log(image)
@@ -94,50 +97,49 @@ const Channel = ({ user = null, db = null }) =>{
                     <Message2 {...message}/>
                 ))}
             </ul> */}
+            <div className="basis-9/12">
+                <Chat2 data={message} uid={uid}/>
 
-            <Chat2 data={message} uid={uid}/>
-            
-            {/* <form onSubmit={handleOnSubmit}>
-                <input 
-                    type="text"
-                    value={newMessage}
-                    onChange={handleOnChange}
-                    placeholder="Type your message here ..."
-                    ref={focus}
-                />
-                <button type="submit" disabled={!newMessage}>
-                    Send
-                </button>
-            </form> */}
-
-            <form onSubmit={handleOnSubmit}>
-                <div className="input_container">
-                    <input
-                        className="input-text" 
-                        type="text"
-                        value={newMessage}
-                        onChange={handleOnChange}
-                        placeholder="Type your message here ..."
-                        ref={focus}
-                    />
-                     {/* <div>
-                        test upload
-                        <input type="file" onChange={handleChangeUp} />
-                        <button onClick={handleUpload}>Upload</button>
-                    </div> */}
-                    <div className="input-file">
-                        <input type="file" onChange={handleChangeUp} />
-                        <button onClick={handleUpload}>Upload</button>
-                    </div>
-                    {/* <button type="submit" className="btn-send" disabled={!newMessage}>Send</button> */}
-                    <button type="submit" className="btn-send" >Send</button>
-                </div>
-                {/* <div className="input_ucontainer">
-                    test upload
-                    <input type="file" onChange={handleChangeUp} />
-                    <button onClick={handleUpload}>Upload</button>
-                </div> */}
-            </form>
+                <form className="" onSubmit={handleOnSubmit}>
+                    {/* <div className="input_container">
+                        <input
+                            className="input-text" 
+                            type="text"
+                            value={newMessage}
+                            onChange={handleOnChange}
+                            placeholder="Type your message here ..."
+                            ref={focus}
+                        />
+                        <div className="input-file">
+                            <input type="file" onChange={handleChangeUp}  />
+                            <button onClick={handleUpload} disabled={!image}>Upload</button>
+                            <p>{(image!=null)?"upload done":null}</p>
+                            <button onClick={()=>{setImage(null)}}>Clear</button>
+                        </div>
+                        <button type="submit" className="btn-send" >Send</button>
+                    </div> */
+                    <div className="flex">
+                        <div className="text-white text-xl pt-[6px] mr-2 flex">
+                            <p className="hover:bg-sky-500 rounded-full pl-2 pr-2 cursor-pointer"><i className='bx bx-file-blank' ></i></p>
+                            <p className="hover:bg-sky-500 rounded-full ml-1 pl-2 pr-2 cursor-pointer"><i className='bx bx-upload' ></i></p>
+                        </div>
+                        <input
+                            className="w-full pt-2 pb-2 pl-4 rounded-full bg-zinc-600 text-white focus:outline-none" 
+                            type="text"
+                            value={newMessage}
+                            onChange={handleOnChange}
+                            placeholder="Type your message here ..."
+                            ref={focus}
+                        />
+                        {/* <div className="">
+                            <input type="file" onChange={handleChangeUp}  />
+                            <button onClick={handleUpload} disabled={!image}>Upload</button>
+                            <p>{(image!=null)?"upload done":null}</p>
+                        </div> */}
+                        <button className="bg-sky-500 rounded-full pl-3 pr-3 pt-1 ml-1" type="submit"  ><i className='bx bx-send' ></i></button>
+                    </div>}
+                </form>
+            </div>
 
 
 
