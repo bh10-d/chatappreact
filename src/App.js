@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { useEffect, useState } from 'react';
 // import HomePage from './page/homepage.component';
 import Channel from '../src/components/channel/channel.component';
+import Sidebar from '../src/components/sidebar/sidebar.component';
 import Button from '../src/components/button/button.component';
 import './App.css';
 // const firebaseConfig = {
@@ -34,6 +35,7 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+// const storage = firebase.storage();
 
 
 function App() {
@@ -81,11 +83,15 @@ function App() {
       {/* <h1>Welcome to my chat app</h1> */}
       {user ? (
         <>
-          <div className="right">
-            <Button onClick={signOut} cName="sign_out">Sign out</Button>
+          <div className="flex justify-between items-center mt-3 mb-3">
+            <div className="text-xl text-white ml-5 flex justify-center items-center"><img className="w-[40px] mr-2" src="./messicon.png"/>ChatApp</div>
+            <Button onClick={signOut} cName="sign_out "><i className='bx bx-log-out'></i></Button>
           </div>
           {/* <p>Welcome to the chat</p> */}
-          <Channel user={user} db={db}/>
+          <div className="flex">
+            <Sidebar/>
+            <Channel user={user} db={db}/>
+          </div>
         </>  
       ) : (
         <div className="middle">
