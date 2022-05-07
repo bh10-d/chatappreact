@@ -1,0 +1,2 @@
+b1: tao ham cung cap phuong thuc dang nhap bang auth.signInWitihPopup()
+b2: dung auth.onAuthStateChanged de lang ngay su kien dang nhap

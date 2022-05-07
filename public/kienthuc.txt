@@ -1,0 +1,8 @@
+context API
+React Hooks
+Ant Design
+Sttyled Components
+Firebase Authentication
+Firebase Firestore
+
+1 collection trong firestore tuong duong vs 1 bang
