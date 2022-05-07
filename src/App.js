@@ -83,8 +83,9 @@ function App() {
       {/* <h1>Welcome to my chat app</h1> */}
       {user ? (
         <>
-          <div className="right">
-            <Button onClick={signOut} cName="sign_out">Sign out</Button>
+          <div className="flex justify-between items-center mt-3 mb-3">
+            <div className="text-xl text-white ml-5 flex justify-center items-center"><img className="w-[40px] mr-2" src="./messicon.png"/>ChatApp</div>
+            <Button onClick={signOut} cName="sign_out "><i className='bx bx-log-out'></i></Button>
           </div>
           {/* <p>Welcome to the chat</p> */}
           <div className="flex">
