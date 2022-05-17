@@ -6,3 +6,8 @@ Firebase Authentication
 Firebase Firestore
 
 1 collection trong firestore tuong duong vs 1 bang
+
+
+
+Context API sẽ giúp cho chúng ta không cần phải truyền 1 dữ liệu từ component cha sang component con thông qua props mà chỉ cần khai báo ở trong 1 provider thì lúc này các component con đều có thể truy xuất được
+các dữ liệu mà chúng ta truyền vào từ provider này

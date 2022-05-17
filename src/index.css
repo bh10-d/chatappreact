@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~antd/dist/antd.css';
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,6 +12,12 @@ body {
   /* background-image: linear-gradient(to bottom right, red, yellow);
   background-repeat: no-repeat; */
   background-color: #282c34;
+  width: auto !important;
+  height: auto !important;
+}
+
+.ant-btn-primary{
+  background-color: #1890ff !important;
 }
 
 code {

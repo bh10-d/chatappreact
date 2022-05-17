@@ -1,9 +1,11 @@
 import {React} from "react";
-import Message from "../message/message.component";
-import '../chat/chat.styles.css';
+import Message from "../Message/message.component";
+import { AuthContext } from '../../Context/AuthProvider';
+import './chat.styles.css';
 
 
-const Chat = ({data, uid}) =>{
+const Chat = ({data, uidcheck}) =>{
+    // console.log({data});
     return (
         <>
             {/* <div className="chat-container"> */}
@@ -19,7 +21,7 @@ const Chat = ({data, uid}) =>{
                     </div>
                 </div> */}
                 {data.map(message=>(
-                    <Message key={message.createdAt} {...message} uidcheck={uid}/>
+                    <Message key={message.createdAt} {...message} uidcheck={uidcheck}/>
                 ))}
 
                 {/* <div className="user_1_container">

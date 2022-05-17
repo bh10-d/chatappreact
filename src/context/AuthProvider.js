@@ -1,43 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React,{ useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../Firebase/config';
+import { Spin } from 'antd';
+
 
 export const AuthContext = React.createContext();
 
-
-
 export default function AuthProvider({ children }) {
+    const history = useNavigate();
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
-
-    useEffect(()=>{
-        const unsubcribe = auth.onAuthStateChanged((user)=>{ // xem su thay doi cua user
+    useEffect(() => {
+        const unsubcribed = auth.onAuthStateChanged((user)=>{
+            // console.log({user});
             if(user){
-                const { name, email, uid, photourl } = user;
+                const { displayName, email, uid, photoURL } = user;
                 setUser({
-                    name,
+                    displayName,
                     email,
                     uid,
-                    photourl
+                    photoURL
                 })
                 setIsLoading(false);
-                // history.pushState('/')
+                history('/')
                 return;
             }
-            setUser({});
             setIsLoading(false);
-            // history.push('/login');
+            history('/login')
         })
-
-        //cleanup function
-
         return ()=>{
-            unsubcribe();
+            unsubcribed();
         }
-    },[caigido]);
-
+    },[history])
+    // console.log({user});
     return (
         <AuthContext.Provider value={{ user }}>
-            {isLoading ? "": children}
+            {isLoading? <Spin/> : children}
         </AuthContext.Provider>
     )
 }

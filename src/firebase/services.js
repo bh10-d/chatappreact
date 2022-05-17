@@ -1,25 +1,68 @@
-import firebase from 'firebase/app';
-import 'firebase/analytics';
-import 'firebase/auth';
-import 'firebase/storage';
+import firebase,{ db } from './config';
 
 
-var firebaseConfig = {
-        apiKey: "AIzaSyDtnggnLxqL2ldriWE0N7SSPW9b--2qPWI",
-        authDomain: "chatapp-3714d.firebaseapp.com",
-        databaseURL: "https://chatapp-3714d-default-rtdb.firebaseio.com",
-        projectId: "chatapp-3714d",
-        storageBucket: "chatapp-3714d.appspot.com",
-        messagingSenderId: "50177120322",
-        appId: "1:50177120322:web:752636dd7a024911fef5db",
-        measurementId: "G-CYN4W9DCNS"
+export const addDocument = (collection, data)=>{
+        const query = db.collection(collection);
+
+        query.add({
+                ...data,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
 }
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-
-const auth = firebase.auth();
-const db = firebase.storage();
-
-export {db, auth};
-export default firebase;
+// tao keywords cho displayName, su dung cho search
+export const generateKeywords = (displayName) => {
+        // liet ke tat cac hoan vi. vd: name = ["David", "Van", "Teo"]
+        // => ["David", "Van", "Teo"], ["David", "Teo", "Van"], ["Teo", "David", "Van"],...
+        const name = displayName.split(' ').filter((word) => word);
+      
+        const length = name.length;
+        let flagArray = [];
+        let result = [];
+        let stringArray = [];
+      
+        /**
+         * khoi tao mang flag false
+         * dung de danh dau xem gia tri
+         * tai vi tri nay da duoc su dung
+         * hay chua
+         **/
+        for (let i = 0; i < length; i++) {
+          flagArray[i] = false;
+        }
+      
+        const createKeywords = (name) => {
+          const arrName = [];
+          let curName = '';
+          name.split('').forEach((letter) => {
+            curName += letter;
+            arrName.push(curName);
+          });
+          return arrName;
+        };
+      
+        function findPermutation(k) {
+          for (let i = 0; i < length; i++) {
+            if (!flagArray[i]) {
+              flagArray[i] = true;
+              result[k] = name[i];
+      
+              if (k === length - 1) {
+                stringArray.push(result.join(' '));
+              }
+      
+              findPermutation(k + 1);
+              flagArray[i] = false;
+            }
+          }
+        }
+      
+        findPermutation(0);
+      
+        const keywords = stringArray.reduce((acc, cur) => {
+          const words = createKeywords(cur);
+          return [...acc, ...words];
+        }, []);
+      
+        return keywords;
+      };
