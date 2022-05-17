@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from 'react';
-import {AuthContext} from './AuthProvider';
+import {AuthContext} from '../Context/AuthProvider';
 import useFirestore from '../Hooks/useFirestore';
 
 
