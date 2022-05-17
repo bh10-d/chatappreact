@@ -6,7 +6,7 @@ import { Spin } from 'antd';
 
 export const AuthContext = React.createContext();
 
-export default function AuthProvider({ children }) {
+const AuthProvider = ({ children }) =>{
     const history = useNavigate();
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -40,3 +40,4 @@ export default function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 }
+export default AuthProvider;
