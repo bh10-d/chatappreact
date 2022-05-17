@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../Firebase/config';
+import { auth } from '../../src/Firebase/config';
 import { Spin } from 'antd';
 
 
