@@ -1,6 +1,6 @@
 import {React} from "react";
 import Message from "../Message/message.component";
-import { AuthContext } from '../../Context/AuthProvider';
+// import { AuthContext } from '../../Context/AuthProvider';
 import './chat.styles.css';
 
 

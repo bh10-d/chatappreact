@@ -9,9 +9,9 @@ import Login from './components/Login/index';
 // import Sidebar from './components/Sidebar/sidebar.component';
 // import Button from './components/Button/button.component';
 
-import ChatRoom from './components/ChatRoom/index';
-import AuthProvider from './Context/AuthProvider';
-import AppProvider from './Context/AppProvider';
+import ChatRoom from '../src/components/ChatRoom/index';
+import AuthProvider from '../src/Context/AuthProvider';
+import AppProvider from '../src/Context/AppProvider';
 import AddRoomModal from '../src/components/Modals/AddRoomModal';
 import InviteMemberModal from '../src/components/Modals/InviteMemberModal';
 import './App.css';
