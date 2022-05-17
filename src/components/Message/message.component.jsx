@@ -17,6 +17,10 @@ const Message2 = ({
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
+    useEffect(() => {
+        scrollToBottom();
+    },[uid])
+
     return (
         <>
             {(uid !== uidcheck)? (
