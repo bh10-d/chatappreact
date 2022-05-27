@@ -14,7 +14,8 @@ export default function AddRoomModal(){
 
     const handleOk = ()=>{
         // console.log({ formData: form.getFieldsValue(), isPrivate});
-        addDocument('rooms',{...form.getFieldsValue(), members:[uid], private:isPrivate});
+        let turnInvite = (isPrivate)?1:0 
+        addDocument('rooms',{...form.getFieldsValue(), members:[uid], private:isPrivate, turn: turnInvite});
         //reset form value
         form.resetFields();
         setIsPrivate(false);
@@ -47,7 +48,8 @@ export default function AddRoomModal(){
                     <Button onClick={handlePrivateState}>
                         Loại phòng chat
                     </Button>
-                    <p>{(isPrivate)?"Phòng chat riêng tư":"Phòng chat công khai"}</p>
+                    <span className="ml-3 text-sky-500">{(isPrivate)?"Phòng chat riêng tư":"Phòng chat công khai"}</span>
+                    <p className="text-gray-400">Click vào nút để chọn trạng thái phòng chat</p>
                 </Form>
             </Modal>
         </div>

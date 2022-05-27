@@ -61,7 +61,7 @@ async function fetchUserList(search, curMembers) {
 
 export default function InviteMemberModal(){
 
-    const {isInviteMemberVisible, setIsInviteMemberVisible, selectedRoomId, selectedRoom} = React.useContext(AppContext);
+    const {isInviteMemberVisible, setIsInviteMemberVisible, selectedRoomId, selectedRoom, turnLeft} = React.useContext(AppContext);
     const {user:{uid}} = React.useContext(AuthContext);
     const [value, setValue] = useState([]);
     const [form] = Form.useForm();
@@ -70,10 +70,17 @@ export default function InviteMemberModal(){
 
         //update members in current room
         const roomRef = db.collection('rooms').doc(selectedRoomId);
-        roomRef.update({ 
-            members: [...selectedRoom.members, ...value.map(val=>val.value)],
-         })
-
+        if(turnLeft == 0 || turnLeft == undefined){
+            roomRef.update({ 
+                members: [...selectedRoom.members, ...value.map(val=>val.value)],
+            })
+        }
+        if(turnLeft == 1){
+            roomRef.update({ 
+                members: [...selectedRoom.members, ...value.map(val=>val.value)],
+                turn: 0
+            })
+        }
         //reset form value
         form.resetFields();
         setIsInviteMemberVisible(false);

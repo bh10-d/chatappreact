@@ -14,6 +14,7 @@ import AuthProvider from '../src/Context/AuthProvider';
 import AppProvider from '../src/Context/AppProvider';
 import AddRoomModal from '../src/components/Modals/AddRoomModal';
 import InviteMemberModal from '../src/components/Modals/InviteMemberModal';
+import ChangeImageGroupModal from '../src/components/Modals/ChangeImageGroupModal';
 import './App.css';
 // const firebaseConfig = {
 //     apiKey: "AIzaSyDtnggnLxqL2ldriWE0N7SSPW9b--2qPWI",
@@ -95,6 +96,7 @@ function App() {
           </Routes>
           <AddRoomModal/>
           <InviteMemberModal/>
+          <ChangeImageGroupModal/>
         </AppProvider>
       </AuthProvider>
     </BrowserRouter>

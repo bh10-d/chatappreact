@@ -9,7 +9,7 @@ const Chat = ({data, uidcheck}) =>{
     return (
         <>
             {/* <div className="chat-container"> */}
-            <div className="w-full h-[calc(100vh-150px)] overflow-y-scroll border border-zinc-800">
+            <div className="w-full h-[calc(100vh-150px)] overflow-y-scroll">
                 {/* <div className="user_1_container">
                     <div className="user_1">
                         {photoURL ? (

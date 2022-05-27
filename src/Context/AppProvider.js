@@ -6,10 +6,13 @@ import useFirestore from '../Hooks/useFirestore';
 export const AppContext = React.createContext();
 
 export default function AppProvider({ children }) {
+    const [mode,setMode] = useState('light');
     const [isAddRoomVisible, setIsAddRoomVisible] = useState(false);
     const [isInviteMemberVisible, setIsInviteMemberVisible] = useState(false);
+    const [isChangeImageGroup, setIsChangeImageGroup] = useState(false);
     const [selectedRoomId, setSelectedRoomId] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
+    const [turnLeft, setTurnLeft] = useState(1);
     const [isChooseImage, setIsChooseimage] = useState(false);
     /**
         name: 'room name',
@@ -44,7 +47,9 @@ export default function AppProvider({ children }) {
 
 
     return (
-        <AppContext.Provider value={{ 
+        <AppContext.Provider value={{
+            mode,
+            setMode,
             rooms, 
             members,  
             isAddRoomVisible, 
@@ -54,10 +59,14 @@ export default function AppProvider({ children }) {
             selectedRoom,
             isInviteMemberVisible, 
             setIsInviteMemberVisible,
+            isChangeImageGroup,
+            setIsChangeImageGroup,
             isPrivate,
             setIsPrivate,
             isChooseImage,
-            setIsChooseimage
+            setIsChooseimage,
+            turnLeft,
+            setTurnLeft
             }}>
             {children}
         </AppContext.Provider>
