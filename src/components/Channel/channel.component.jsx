@@ -1,6 +1,5 @@
 import React,{ useState, useEffect, useRef} from "react";
-import firebase from "firebase";
-import {storage, db} from '../../Firebase/config';
+import {storage} from '../../Firebase/config';
 import Chat from "../Chat/chat.component";
 import { Avatar, Button, Tooltip, Alert } from "antd";
 import { UserAddOutlined }from '@ant-design/icons';
@@ -9,41 +8,19 @@ import {AuthContext} from '../../Context/AuthProvider';
 import {addDocument} from '../../Firebase/services';
 import useFirestore from '../../Hooks/useFirestore';
 
-const Channel = ({ user = null, db = null }) =>{
-    const { mode, selectedRoom, members, setIsInviteMemberVisible, isPrivate, isChooseImage, setIsChooseimage, turnLeft, isChangeImageGroup, setIsChangeImageGroup } = React.useContext(AppContext);
+const Channel = () =>{
+    const { mode, selectedRoom, members, setIsInviteMemberVisible, isPrivate, isChooseImage, setIsChooseimage, turnLeft, setIsChangeImageGroup } = React.useContext(AppContext);
     const {user:{
         uid,
         photoURL,
         displayName,
     }} = React.useContext(AuthContext);
-    // const storage = firebase.storage();
-
-    // const [message, setMessage] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    // const [isChooseImage, setIsChooseimage] = useState('hidden');
     const focus = useRef();
     const focusImage = useRef();
-    // const {uid, displayName, photoURL} = user;
     const [image,setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState()
 
-    
-    // useEffect(() =>{
-    //     if(db){
-    //         const unsubcribe = db
-    //             .collection('messages')
-    //             .orderBy('createdAt')
-    //             .limit(100)
-    //             .onSnapshot(querySnapshot => {
-    //                 const data = querySnapshot.docs.map(doc => ({
-    //                     ...doc.data(),
-    //                     id: doc.id
-    //                 }));
-    //                 setMessage(data);
-    //             })
-    //             return unsubcribe;
-    //     }
-    // },[db]);
 
     const handleOnChange = e=>{
         setNewMessage(e.target.value);
@@ -51,9 +28,8 @@ const Channel = ({ user = null, db = null }) =>{
     };
 
     const handleOnSubmit = e=>{
-        
         let testing = '';
-        if(focusImage.current.files[0] != undefined){
+        if(focusImage.current.files[0] !== undefined){
             const uploadTask = storage.ref(`images/${focusImage.current.files[0].name}`).put(focusImage.current.files[0]);
             uploadTask.on(
                 "state_changed",
@@ -89,7 +65,7 @@ const Channel = ({ user = null, db = null }) =>{
                 e.preventDefault();
             }else{
                 e.preventDefault();
-                if(newMessage != ''){
+                if(newMessage !== ''){
                     addDocument('messages',{
                         text: newMessage,
                         uid,
@@ -117,50 +93,7 @@ const Channel = ({ user = null, db = null }) =>{
         compareValue: selectedRoom.id
     }),[selectedRoom.id])
     
-    const handleUpload = ()=>{
-        setImage('')
-        const uploadTask = storage.ref(`images/${focusImage.current.files[0].name}`).put(focusImage.current.files[0]);
-        uploadTask.on(
-            "state_changed",
-            snapshot =>{},
-            error =>{
-                console.log(error);
-            },
-            ()=>{
-                storage
-                    .ref("images")
-                    .child(focusImage.current.files[0].name)
-                    .getDownloadURL()
-                    .then(url => {
-                        setImage(url)
-                        console.log(url)
-                    })
-            }
-        )
-        setIsChooseimage(false)
-        console.log(focusImage.current.files)
-    }
-
     const messages = useFirestore('messages', condition)
-
-    // console.log({messages})
-
-    const handleChangeUp = e=>{
-        if(e.target.files[0]){
-            setImage(e.target.files[0]);
-            console.log(e.target);
-        }
-    }
-
-
-    const handleChooseimage = ()=>{ // chua su dung
-        if(isChooseImage){
-            return setIsChooseimage(false)
-        }else{
-            return setIsChooseimage(true)
-        }
-    }
-
     useEffect(() =>{
         //CleanUp
         return()=>{
@@ -189,13 +122,13 @@ const Channel = ({ user = null, db = null }) =>{
         //true => private
         //fasle => non private
     
-        if(isPrivate == false && turnLeft == 0 || turnLeft == undefined){
+        if(isPrivate === false && (turnLeft === 0 || turnLeft === undefined)){
             return (<Button icon={<UserAddOutlined />} className="text-sky-600 hover:text-pink-500 text-[16px]" type="text" onClick={()=>setIsInviteMemberVisible(true)}>Mời</Button>)
         }
-        if(isPrivate == true && turnLeft == 1){
+        if(isPrivate === true && turnLeft === 1){
             return (<Button icon={<UserAddOutlined />} className="text-sky-600 hover:text-pink-500 text-[16px]" type="text" onClick={()=>setIsInviteMemberVisible(true)}>Mời</Button>)
         }
-        if(isPrivate == true && turnLeft == 0){
+        if(isPrivate === true && turnLeft === 0){
             return ''
         }
         console.log(turnLeft)
@@ -203,26 +136,6 @@ const Channel = ({ user = null, db = null }) =>{
     }
 
     const handleChangeAvaGr = () => {
-        // const roomImage = db.collection('rooms').doc(selectedRoom.id);
-        // const uploadTask = storage.ref(`imageGroups/${focusImage.current.files[0].name}`).put(focusImage.current.files[0]);
-        // uploadTask.on(
-        //     "state_changed",
-        //     snapshot =>{},
-        //     error =>{
-        //         console.log(error);
-        //     },
-        //     ()=>{
-        //         storage
-        //             .ref("images")
-        //             .child(focusImage.current.files[0].name)
-        //             .getDownloadURL()
-        //             .then(url => {
-        //                 roomImage.update({
-        //                     imageGroup: url
-        //                 })
-        //             })
-        //     }
-        // )
         setIsChangeImageGroup(true)
         console.log("click")
     }
@@ -233,7 +146,7 @@ const Channel = ({ user = null, db = null }) =>{
                 { selectedRoom.id ? (
                     <>
                         <div className="h-10 flex justify-between items-center shadow-md">
-                            <p className={`text-xl ml-4 ${(mode=="dark")?"text-white":"text-black"}`}>{selectedRoom.name}</p>
+                            <p className={`text-xl ml-4 ${(mode==="dark")?"text-white":"text-black"}`}>{selectedRoom.name}</p>
                             <div className="flex justify-center items-center">
                                 {/* {(isPrivate)?'':(<Button icon={<UserAddOutlined />} className="text-sky-600 hover:text-pink-500 text-[16px]" type="text" onClick={()=>setIsInviteMemberVisible(true)}>Mời</Button>)} */}
                                 <ButtonInite />
@@ -244,8 +157,10 @@ const Channel = ({ user = null, db = null }) =>{
                                         </Tooltip>
                                     ))}
                                 </Avatar.Group>
-                                <div className={`ml-1 mr-2 ${(mode=="dark")?"text-white":"text-black"}`} onClick={handleChangeAvaGr}>
-                                    <i className="fa-solid fa-circle-plus"></i>
+                                <div className={`ml-1 mr-2 ${(mode==="dark")?"text-white":"text-black"}`} onClick={handleChangeAvaGr}>
+                                    {/* <i className="fa-solid fa-circle-plus"></i> */}
+                                    {/* <i className="fa-solid fa-info"></i> */}
+                                    <i className="fa-solid fa-circle-info"></i>
                                 </div>
                             </div>
                             {/* <button className="mr-3 text-2xl text-white"><i className='bx bx-info-circle' ></i></button> */}
@@ -270,7 +185,7 @@ const Channel = ({ user = null, db = null }) =>{
                                 </div>
                             </div> */}
                             <div className="flex">
-                                <div className={`${(mode=="dark")?"text-white":"text-black"} text-xl pt-[6px] mr-2 flex`}>
+                                <div className={`${(mode==="dark")?"text-white":"text-black"} text-xl pt-[6px] mr-2 flex`}>
                                     {/* <p className="rounded-full pl-2 pr-2 cursor-pointer" ><i className='bx bx-file-blank' ></i></p> */}
                                     <div className="ml-3">
                                         <input className="custom_input-file" ref={focusImage} onChange={handleChangeInput} type="file"/>
@@ -278,7 +193,7 @@ const Channel = ({ user = null, db = null }) =>{
                                     </div>
                                 </div>
                                 <input
-                                    className={`w-full pt-2 pb-2 pl-4 rounded-full ${(mode=="dark")?"bg-zinc-600 text-white":"bg-slate-200 text-black"}   focus:outline-none`} 
+                                    className={`w-full pt-2 pb-2 pl-4 rounded-full ${(mode==="dark")?"bg-zinc-600 text-white":"bg-slate-200 text-black"}   focus:outline-none`} 
                                     type="text"
                                     value={newMessage}
                                     onChange={handleOnChange}

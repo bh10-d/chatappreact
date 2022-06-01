@@ -59,9 +59,9 @@ const Message2 = ({
                                     </div>
                                 </div>
                             </div>
-                            {photoURL ? (
+                            {/* {photoURL ? (
                                 <img className="avatar" src={photoURL} alt={displayName} title={displayName}/>
-                            ):null}
+                            ):null} */}
                         </div>
                     </div>
                 </div>

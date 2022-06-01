@@ -10,7 +10,7 @@ export default function ChatRoom(){
     const {mode,setMode} = React.useContext(AppContext);
 
     const handleMode = ()=>{
-        if(mode == 'light'){
+        if(mode === 'light'){
             document.body.style.backgroundColor = "#282c34";
             setMode('dark')
         }else{
@@ -22,7 +22,7 @@ export default function ChatRoom(){
     return (
         <>
             <div className="flex justify-between items-center mt-3 mb-3">
-                <div className={`text-xl ${(mode=="dark")?"text-white":"text-black"} ml-5 flex justify-center items-center`}><img className="w-[40px] mr-2" src="./messicon.png"/>ChatApp</div>
+                <div className={`text-xl ${(mode==="dark")?"text-white":"text-black"} ml-5 flex justify-center items-center`}><img className="w-[40px] mr-2" src="./messicon.png"/>ChatApp</div>
                 {/* <Button cName="sign_out" onClick={()=> auth.signOut() }>Đăng xuất</Button> */}
                 <div className="flex justify-center items-center">
                     <button className="mr-3" id="mode" onClick={handleMode}>Mode</button>
