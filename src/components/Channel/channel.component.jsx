@@ -18,7 +18,7 @@ const Channel = () =>{
     const [newMessage, setNewMessage] = useState('');
     const focus = useRef();
     const focusImage = useRef();
-    const [image,setImage] = useState(null);
+    // const [image,setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState()
 
 
@@ -46,7 +46,7 @@ const Channel = () =>{
                     .getDownloadURL()
                     .then(url => {
                         testing = url
-                        setImage(url)
+                        // setImage(url)
                         console.log(url)
                         addDocument('messages',{
                             text: newMessage,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button, Typography } from 'antd';
-import firebase, {auth,db} from '../../Firebase/config';
+import firebase, {auth} from '../../Firebase/config';
 import { addDocument, generateKeywords } from '../../Firebase/services';
 // import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,6 @@ const fbProvider = new firebase.auth.FacebookAuthProvider();
 const ggProvider = new firebase.auth.GoogleAuthProvider();
 
 export default function Login(){
-    
     const handleFbLogin = ()=>{
         auth.signInWithPopup(fbProvider);
     }
@@ -29,8 +28,6 @@ export default function Login(){
         }
     }
     
-    
-
     return (
         <div>
             <Row justify="center" style={{height: 800}}>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form, Input, Modal, Button, Checkbox } from 'antd';
+import { Form, Input, Modal, Button } from 'antd';
 import {addDocument} from '../../Firebase/services';
 import {AppContext} from '../../Context/AppProvider';
 import {AuthContext} from '../../Context/AuthProvider';
-// import { Button } from 'antd/lib/radio';
 
 export default function AddRoomModal(){
 
@@ -13,7 +12,6 @@ export default function AddRoomModal(){
     const [isPrivate, setIsPrivate] = React.useState(false);
 
     const handleOk = ()=>{
-        // console.log({ formData: form.getFieldsValue(), isPrivate});
         let turnInvite = (isPrivate)?1:0 
         addDocument('rooms',{...form.getFieldsValue(), members:[uid], private:isPrivate, turn: turnInvite});
         //reset form value
@@ -32,7 +30,6 @@ export default function AddRoomModal(){
         setIsPrivate(!isPrivate);
     }
 
-   
     return (
         <div>
             <Modal

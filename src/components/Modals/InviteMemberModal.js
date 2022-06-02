@@ -1,8 +1,8 @@
-import React,{ useState, useEffect } from 'react';
-import {addDocument} from '../../Firebase/services';
+import React,{ useState } from 'react';
+// import {addDocument} from '../../Firebase/services';
 import {db} from '../../Firebase/config';
 import {AppContext} from '../../Context/AppProvider';
-import {AuthContext} from '../../Context/AuthProvider';
+// import {AuthContext} from '../../Context/AuthProvider';
 import { Form, Select, Modal, Spin, Avatar } from 'antd';
 import { debounce } from 'lodash';
 
@@ -62,7 +62,7 @@ async function fetchUserList(search, curMembers) {
 export default function InviteMemberModal(){
 
     const {isInviteMemberVisible, setIsInviteMemberVisible, selectedRoomId, selectedRoom, turnLeft} = React.useContext(AppContext);
-    const {user:{uid}} = React.useContext(AuthContext);
+    // const {user:{uid}} = React.useContext(AuthContext);
     const [value, setValue] = useState([]);
     const [form] = Form.useForm();
 
@@ -70,12 +70,12 @@ export default function InviteMemberModal(){
 
         //update members in current room
         const roomRef = db.collection('rooms').doc(selectedRoomId);
-        if(turnLeft == 0 || turnLeft == undefined){
+        if(turnLeft === 0 || turnLeft === undefined){
             roomRef.update({ 
                 members: [...selectedRoom.members, ...value.map(val=>val.value)],
             })
         }
-        if(turnLeft == 1){
+        if(turnLeft === 1){
             roomRef.update({ 
                 members: [...selectedRoom.members, ...value.map(val=>val.value)],
                 turn: 0
