@@ -30,38 +30,113 @@ const Channel = () =>{
     const handleOnSubmit = e=>{
         let testing = '';
         if(focusImage.current.files[0] !== undefined){
-            const uploadTask = storage.ref(`images/${focusImage.current.files[0].name}`).put(focusImage.current.files[0]);
-            uploadTask.on(
-                "state_changed",
-                snapshot =>{
-                    console.log(snapshot)
-                },
-                error =>{
-                    console.log(error);
-                },
-                ()=>{
-                    storage
-                    .ref("images")
-                    .child(focusImage.current.files[0].name)
-                    .getDownloadURL()
-                    .then(url => {
-                        testing = url
-                        // setImage(url)
-                        console.log(url)
-                        addDocument('messages',{
-                            text: newMessage,
-                            textimage: testing,
-                            uid,
-                            photoURL,
-                            roomId: selectedRoom.id,
-                            displayName,
+            let file = focusImage.current.files[0];
+            if(file.type.includes('image')){
+                const uploadTask = storage.ref(`images/${file.name}`).put(file);
+                // console.log(File(focusImage.current.files[0].name, focusImage.current.files[0],{text: newMessage, uid, photoURL, roomId: selectedRoom.id, displayName})); 
+                // File(focusImage.current.files[0],{text: newMessage, uid, photoURL, roomId: selectedRoom.id, displayName})
+                uploadTask.on(
+                    "state_changed",
+                    snapshot =>{
+                        console.log(snapshot)
+                    },
+                    error =>{
+                        console.log(error);
+                    },
+                    ()=>{
+                        storage
+                        .ref("images")
+                        .child(file.name)
+                        .getDownloadURL()
+                        .then(url => {
+                            testing = url
+                            // setImage(url)
+                            console.log(url)
+                            addDocument('messages',{
+                                text: newMessage,
+                                textimage: testing,
+                                uid,
+                                photoURL,
+                                roomId: selectedRoom.id,
+                                displayName,
+                            })
+                            console.log('bo may chay truoc nha')
+                            focus.current.focus();
+                            deleteImage();
                         })
-                        console.log('bo may chay truoc nha')
-                        focus.current.focus();
-                        deleteImage();
-                    })
+                    }
+                    )
                 }
-                )
+                if(file.type.includes('doc')||file.type.includes('excel')||file.type.includes('pdf')){
+                    const uploadTask = storage.ref(`files/${file.name}`).put(file);
+                    uploadTask.on(
+                        "state_changed",
+                        snapshot =>{
+                            console.log(snapshot)
+                        },
+                        error =>{
+                            console.log(error);
+                        },
+                        ()=>{
+                            storage
+                            .ref("files")
+                            .child(file.name)
+                            .getDownloadURL()
+                            .then(url => {
+                                testing = url
+                                // setImage(url)
+                                console.log(url)
+                                addDocument('messages',{
+                                    text: newMessage,
+                                    textfile: testing,
+                                    namefile: file.name,
+                                    uid,
+                                    photoURL,
+                                    roomId: selectedRoom.id,
+                                    displayName,
+                                })
+                                console.log('bo may chay truoc nha')
+                                focus.current.focus();
+                                deleteImage();
+                            })
+                        }
+                    )
+                }
+                if(file.type.includes('video')){
+                    const uploadTask = storage.ref(`videos/${file.name}`).put(file);
+                    uploadTask.on(
+                        "state_changed",
+                        snapshot =>{
+                            console.log(snapshot)
+                        },
+                        error =>{
+                            console.log(error);
+                        },
+                        ()=>{
+                            storage
+                            .ref("videos")
+                            .child(file.name)
+                            .getDownloadURL()
+                            .then(url => {
+                                testing = url
+                                // setImage(url)
+                                console.log(url)
+                                addDocument('messages',{
+                                    text: newMessage,
+                                    textvideo: testing,
+                                    namevideo: file.name,
+                                    uid,
+                                    photoURL,
+                                    roomId: selectedRoom.id,
+                                    displayName,
+                                })
+                                console.log('bo may chay truoc nha')
+                                focus.current.focus();
+                                deleteImage();
+                            })
+                        }
+                    )
+                }
                 e.preventDefault();
             }else{
                 e.preventDefault();
@@ -139,6 +214,9 @@ const Channel = () =>{
         setIsChangeImageGroup(true)
         console.log("click")
     }
+
+
+    
 
     return (
         <>
