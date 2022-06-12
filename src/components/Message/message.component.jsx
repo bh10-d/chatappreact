@@ -1,10 +1,10 @@
-import React, {useEffect,useRef} from 'react';
+import React, {memo, useEffect,useRef} from 'react';
 import {formatRelative} from 'date-fns';
-// import { AppContext } from '../../Context/AppProvider';
+import { AppContext } from '../../Context/AppProvider';
 import { LinkPreview } from '@dhaiwat10/react-link-preview';
 
 // style in chatstyles
-const Message2 = ({
+const Message = ({
     createdAt = null,
     text = '',
     textimage = null,
@@ -17,26 +17,55 @@ const Message2 = ({
     uidcheck = '',
 })=>{
     const messagesEndRef = useRef(null)
-    
+    const {isPrivate} = React.useContext(AppContext);
     const scrollToBottom = () => {
       messagesEndRef.current?.scrollIntoView({ behavior: "auto" })
     }
+    
 
     useEffect(() => {
         scrollToBottom();
     },[uid])
 
 
-    const File = (file) => {
-        return <a href={file.file}><i className="fa-solid fa-download"></i>Download file</a>
+    const File = ({file}) => {
+        return <a href={file}><i className="fa-solid fa-download"></i>Download file</a>
     }
 
-    const Video = (video) => {
+    const Video = ({video}) => {
         return (
             <video controls>
-                <source src={video.video} type="video/mp4"></source>
+                <source src={video} type="video/mp4"></source>
             </video>
         )
+    }
+
+    // function utf8_to_b64( str ) {
+    //     return window.btoa(unescape(encodeURIComponent( str )));
+    // }
+    function b64_to_utf8( str ) {
+        return decodeURIComponent(unescape(window.atob( str )));
+    }
+    //unescape dung de giai ma escape
+      
+    // console.log(utf8_to_b64('✓ à la mode'))
+    // console.log(b64_to_utf8('4pyTIMOgIGxhIG1vZGU='))
+
+    const Child = ({text, textfile, textvideo})=>{
+        // console.log(textfile);
+        if(text.includes('https://') || text.includes('http://')){
+            return <LinkPreview url={text} />
+        }else if(textfile != '' || textfile.length > 0){
+            return <File file={textfile} />
+        }else if(textvideo != '' || textvideo.length > 0){
+            return <Video video={textvideo}/>
+        }else{
+            if(isPrivate){
+                return b64_to_utf8(text);
+            }else{
+                return text||'';
+            }
+        }
     }
 
     return (
@@ -54,9 +83,10 @@ const Message2 = ({
                                     {/* {(isPrivate)? atob((text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text):(text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text} */}
                                     {/* {(text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text} */}
                                     {/* {(text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text} */}
-                                    {(text.includes('https://') || text.includes('http://'))?<LinkPreview url={text} />:text}
+                                    {/* {(text.includes('https://') || text.includes('http://'))?<LinkPreview url={text} />:text}
                                     {(textfile == ''|| textfile == null)?"":<File file={textfile} />}
-                                    {(textvideo == '' || textvideo == null)?"":<Video video={textvideo}/>}
+                                    {(textvideo == '' || textvideo == null)?"":<Video video={textvideo}/>} */}
+                                    <Child text={text || ''} textfile={textfile || ''} textvideo={textvideo || ''}/>
                                 </div>
                             </div>
                         </div>
@@ -73,9 +103,10 @@ const Message2 = ({
                                         {/* {(isPrivate)? atob(text):text} */}
                                         {/* {text} */}
                                         {/* {(isPrivate)? atob((text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text):(text.includes('https://') || text.includes('http://'))?<a href={text}>{text}</a>:text} */}
-                                        {(text.includes('https://') || text.includes('http://'))?<LinkPreview url={text} />:text}
+                                        {/* {(text.includes('https://') || text.includes('http://'))?<LinkPreview url={text} />:text}
                                         {(textfile == ''|| textfile == null)?"":<File file={textfile} />}
-                                        {(textvideo == '' || textvideo == null)?"":<Video video={textvideo}/>}
+                                        {(textvideo == '' || textvideo == null)?"":<Video video={textvideo}/>} */}
+                                        <Child text={text || ''} textfile={textfile || ''} textvideo={textvideo || ''}/>
                                     </div>
                                 </div>
                             </div>
@@ -88,4 +119,4 @@ const Message2 = ({
     );
 };
 
-export default Message2;
+export default React.memo(Message);

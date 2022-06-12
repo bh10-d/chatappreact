@@ -15,20 +15,32 @@ const Channel = () =>{
         photoURL,
         displayName,
     }} = React.useContext(AuthContext);
+
     const [newMessage, setNewMessage] = useState('');
     const focus = useRef();
     const focusImage = useRef();
     // const [image,setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState()
 
+    // console.log('asd');
+
+    function utf8_to_b64( str ) {
+        return window.btoa(unescape(encodeURIComponent( str )));
+    }
 
     const handleOnChange = e=>{
         setNewMessage(e.target.value);
-        // console.log(e.target);
     };
-
     const handleOnSubmit = e=>{
         let testing = '';
+        let formatText = '';
+        
+        if(isPrivate){
+            formatText = utf8_to_b64(newMessage);
+        }else{
+            formatText = newMessage;
+        }
+
         if(focusImage.current.files[0] !== undefined){
             let file = focusImage.current.files[0];
             if(file.type.includes('image')){
@@ -53,7 +65,7 @@ const Channel = () =>{
                             // setImage(url)
                             console.log(url)
                             addDocument('messages',{
-                                text: newMessage,
+                                text: formatText,
                                 textimage: testing,
                                 uid,
                                 photoURL,
@@ -87,7 +99,7 @@ const Channel = () =>{
                                 // setImage(url)
                                 console.log(url)
                                 addDocument('messages',{
-                                    text: newMessage,
+                                    text: formatText,
                                     textfile: testing,
                                     namefile: file.name,
                                     uid,
@@ -122,7 +134,7 @@ const Channel = () =>{
                                 // setImage(url)
                                 console.log(url)
                                 addDocument('messages',{
-                                    text: newMessage,
+                                    text: formatText,
                                     textvideo: testing,
                                     namevideo: file.name,
                                     uid,
@@ -142,7 +154,7 @@ const Channel = () =>{
                 e.preventDefault();
                 if(newMessage !== ''){
                     addDocument('messages',{
-                        text: newMessage,
+                        text: formatText,
                         uid,
                         photoURL,
                         roomId: selectedRoom.id,
@@ -178,17 +190,17 @@ const Channel = () =>{
 
     const handleChangeInput = (e)=>{
         setIsChooseimage(true);
-        console.log(focusImage.current.files[0].name)
-        console.log(e.target.files[0])
+        // console.log(focusImage.current.files[0].name)
+        // console.log(e.target.files[0])
         const file = e.target.files[0];
         file.preview = URL.createObjectURL(file);
         setPreviewImage(file)
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         focus.current.focus();
     }
 
     const deleteImage = ()=>{
-        console.log(focus.current.files)
+        // console.log(focus.current.files)
         focusImage.current.value= '';
         setIsChooseimage(false)
     }
@@ -206,17 +218,12 @@ const Channel = () =>{
         if(isPrivate === true && turnLeft === 0){
             return ''
         }
-        console.log(turnLeft)
-
     }
 
     const handleChangeAvaGr = () => {
         setIsChangeImageGroup(true)
         console.log("click")
     }
-
-
-    
 
     return (
         <>
@@ -254,20 +261,10 @@ const Channel = () =>{
                         </div>
                         <Chat data={messages} uidcheck={uid}/>
                         <form className="" onSubmit={handleOnSubmit}>
-                            {/* <div className="input_container">
-                                <div className="input-file">
-                                    <input type="file" onChange={handleChangeUp}  />
-                                    <button onClick={handleUpload} disabled={!image}>Upload</button>
-                                    <p>{(image!=null)?"upload done":null}</p>
-                                    <button onClick={()=>{setImage(null)}}>Clear</button>
-                                </div>
-                            </div> */}
                             <div className="flex">
                                 <div className={`${(mode==="dark")?"text-white":"text-black"} text-xl pt-[6px] mr-2 flex`}>
-                                    {/* <p className="rounded-full pl-2 pr-2 cursor-pointer" ><i className='bx bx-file-blank' ></i></p> */}
                                     <div className="ml-3">
                                         <input className="custom_input-file" ref={focusImage} onChange={handleChangeInput} type="file"/>
-                                        {/* <p className="hover:bg-sky-500 rounded-full ml-1 pl-2 pr-2 cursor-pointer" onClick={handleChooseimage}><i className="fa-solid fa-arrow-up-from-bracket"></i></p> */}
                                     </div>
                                 </div>
                                 <input
@@ -278,24 +275,41 @@ const Channel = () =>{
                                     placeholder="Type your message here ..."
                                     ref={focus}
                                 />
-                                {/* <div className="">
-                                    <input type="file" onChange={handleChangeUp}  />
-                                    <button onClick={handleUpload} disabled={!image}>Upload</button>
-                                    <p>{(image!=null)?"upload done":null}</p>
-                                </div> */}
                                 <button className="bg-sky-500 rounded-full pl-3 pr-3 pt-1 ml-1" type="submit" onKeyPress={handlePressEnter} ><i className='bx bx-send' ></i></button>
                             </div>
                         </form>
+                        {/* <CustomForm handleOnSubmit={handleOnSubmit} mode={mode} handleChangeInput={handleChangeInput} focusImage={focusImage} focus={focus} handleOnChange={handleOnChange} newMessage={newMessage} /> */}
                     </>
                 ) :  <Alert message="Hãy chọn phòng" type="info" showIcon style={{ margin: 5 }} closable/>}
-                
             </div>
-
-
-
         </>
     )
 }
+
+// const CustomForm = (props)=>{
+//     console.log(props)
+//     return (
+//         <form className="" onSubmit={props.handleOnSubmit}>
+//             <div className="flex">
+//                 <div className={`${(props.mode==="dark")?"text-white":"text-black"} text-xl pt-[6px] mr-2 flex`}>
+//                     <div className="ml-3">
+//                         <input className="custom_input-file" ref={props.focusImage} onChange={props.handleChangeInput} type="file"/>
+//                     </div>
+//                 </div>
+//                 <input
+//                     className={`w-full pt-2 pb-2 pl-4 rounded-full ${(props.mode==="dark")?"bg-zinc-600 text-white":"bg-slate-200 text-black"}   focus:outline-none`} 
+//                     type="text"
+//                     value={props.newMessage}
+//                     onChange={props.handleOnChange}
+//                     placeholder="Type your message here ..."
+//                     ref={props.focus}
+//                 />
+//                 <button className="bg-sky-500 rounded-full pl-3 pr-3 pt-1 ml-1" type="submit" onKeyPress={props.handlePressEnter} ><i className='bx bx-send' ></i></button>
+//             </div>
+//         </form>
+//     )
+// }
+
 
 export default Channel;
 
